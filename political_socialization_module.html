@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Political Socialization &amp; Relativistic Thinking</title>
+<style>
+  :root {
+    --navy: #1a3a5c;
+    --navy-light: #2a5280;
+    --amber: #c47a15;
+    --amber-light: #f0a835;
+    --amber-bg: #fef7ec;
+    --slate: #4a5568;
+    --slate-light: #718096;
+    --bg: #f8f9fb;
+    --card-bg: #ffffff;
+    --border: #e2e8f0;
+    --success: #276749;
+    --success-bg: #f0faf4;
+    --success-border: #9ae6b4;
+    --danger: #9b2c2c;
+    --danger-bg: #fff5f5;
+    --radius: 10px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.05);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--bg);
+    color: #1a202c;
+    line-height: 1.7;
+    font-size: 16px;
+  }
+
+  /* ── HEADER ── */
+  .module-header {
+    background: var(--navy);
+    color: #fff;
+    padding: 2rem 2.5rem 1.5rem;
+    border-bottom: 4px solid var(--amber-light);
+  }
+  .module-header .eyebrow {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-bottom: 0.4rem;
+  }
+  .module-header h1 {
+    font-size: 1.9rem;
+    font-weight: normal;
+    line-height: 1.2;
+    color: #fff;
+  }
+  .module-header h1 em { color: var(--amber-light); font-style: normal; }
+  .module-header p {
+    margin-top: 0.6rem;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.75);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    max-width: 680px;
+  }
+
+  /* ── PROGRESS BAR ── */
+  .progress-wrap {
+    background: #fff;
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 2.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .progress-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--slate);
+    white-space: nowrap;
+    letter-spacing: 0.5px;
+  }
+  .progress-steps {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+  }
+  .step-dot {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border);
+    transition: background 0.4s;
+  }
+  .step-dot.done { background: var(--amber-light); }
+  .progress-pct {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 2rem 2rem 3rem;
+  }
+
+  /* ── SECTION HEADINGS ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 2.5rem 0 1rem;
+  }
+  .section-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 1.25rem;
+    font-weight: normal;
+    color: var(--navy);
+  }
+  .activity-badge {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: var(--amber-bg);
+    color: var(--amber);
+    border: 1px solid #f0d8a4;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+  }
+  .activity-badge.done-badge {
+    background: var(--success-bg);
+    color: var(--success);
+    border-color: var(--success-border);
+  }
+
+  /* ── READING CARD ── */
+  .reading-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+  }
+  .reading-card p { margin-bottom: 0.85rem; color: #2d3748; }
+  .reading-card p:last-child { margin-bottom: 0; }
+  .reading-card h3 {
+    font-size: 1.05rem;
+    color: var(--navy);
+    margin: 1.2rem 0 0.5rem;
+  }
+
+  /* ── KEY TERMS FLIP CARDS ── */
+  .terms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 12px;
+    margin-bottom: 0.5rem;
+  }
+  .term-card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    min-height: 110px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .term-card:hover { border-color: var(--amber-light); box-shadow: 0 2px 10px rgba(196,122,21,0.15); }
+  .term-card .front {
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    color: var(--navy);
+    font-weight: bold;
+  }
+  .term-card .front small {
+    display: block;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+    color: var(--slate-light);
+    margin-top: 5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .term-card .back {
+    display: none;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: #2d3748;
+  }
+  .term-card.revealed {
+    background: var(--navy);
+    border-color: var(--navy);
+    cursor: default;
+  }
+  .term-card.revealed .front { display: none; }
+  .term-card.revealed .back {
+    display: block;
+    color: rgba(255,255,255,0.92);
+  }
+  .term-card.revealed::before {
+    content: attr(data-term);
+    font-family: Georgia, serif;
+    font-size: 11px;
+    color: var(--amber-light);
+    font-weight: bold;
+    letter-spacing: 0.3px;
+    display: block;
+    margin-bottom: 5px;
+  }
+  .terms-hint {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    color: var(--slate-light);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .terms-progress {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    color: var(--slate);
+    text-align: right;
+    margin-top: 6px;
+  }
+
+  /* ── AGENT MATCHING ── */
+  .match-intro {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13.5px;
+    color: var(--slate);
+    margin-bottom: 1rem;
+    background: var(--amber-bg);
+    border-left: 3px solid var(--amber-light);
+    padding: 0.75rem 1rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .scenarios-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1.25rem;
+  }
+  .scenario-item {
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .scenario-text {
+    flex: 1;
+    font-size: 14.5px;
+    color: #2d3748;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  .scenario-select {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    padding: 6px 10px;
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    color: var(--navy);
+    background: var(--bg);
+    cursor: pointer;
+    min-width: 170px;
+    flex-shrink: 0;
+  }
+  .scenario-select:focus { outline: 2px solid var(--amber-light); }
+  .scenario-result {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-family: monospace;
+  }
+  .scenario-result.correct { background: var(--success-bg); color: var(--success); border: 1.5px solid var(--success-border); opacity: 1; }
+  .scenario-result.incorrect { background: var(--danger-bg); color: var(--danger); border: 1.5px solid #fed7d7; opacity: 1; }
+  .check-btn {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 9px 22px;
+    background: var(--navy);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    letter-spacing: 0.3px;
+    transition: background 0.2s;
+  }
+  .check-btn:hover { background: var(--navy-light); }
+  .check-btn:disabled { background: #a0aec0; cursor: default; }
+  .feedback-msg {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    margin-top: 10px;
+    display: none;
+  }
+  .feedback-msg.show { display: block; }
+  .feedback-msg.ok { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+  .feedback-msg.retry { background: var(--danger-bg); color: var(--danger); border: 1px solid #fed7d7; }
+
+  /* ── DUALISM SORT ── */
+  .sort-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 1rem;
+  }
+  @media (max-width: 600px) {
+    .sort-container { grid-template-columns: 1fr; }
+  }
+  .sort-col {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    min-height: 180px;
+    padding: 0.75rem;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .sort-col.dualism-col { border-color: #93c5fd; background: #f0f7ff; }
+  .sort-col.relativism-col { border-color: #6ee7b7; background: #f0fdf9; }
+  .sort-col-label {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .sort-col.dualism-col .sort-col-label { color: #1e40af; }
+  .sort-col.relativism-col .sort-col-label { color: #065f46; }
+  .sort-col-sub {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    color: var(--slate-light);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .sort-items-bank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 1rem;
+  }
+  .sort-chip {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12.5px;
+    padding: 7px 12px;
+    background: var(--card-bg);
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    cursor: pointer;
+    color: #2d3748;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .sort-chip:hover { border-color: var(--amber-light); background: var(--amber-bg); }
+  .placed-chip {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-bottom: 5px;
+    display: inline-block;
+  }
+  .placed-chip.dualism { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+  .placed-chip.relativism { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+  .sort-pending {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    color: var(--slate-light);
+    font-style: italic;
+    margin-top: 6px;
+  }
+  .sort-action-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+
+  /* ── REFLECTION ── */
+  .reflection-prompt {
+    font-family: Georgia, serif;
+    font-size: 1.05rem;
+    color: var(--navy);
+    background: var(--card-bg);
+    border-left: 4px solid var(--amber-light);
+    padding: 1rem 1.2rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin-bottom: 0.75rem;
+    box-shadow: var(--shadow);
+  }
+  .reflection-box {
+    width: 100%;
+    min-height: 110px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    color: #2d3748;
+    resize: vertical;
+    background: var(--card-bg);
+    transition: border-color 0.2s;
+  }
+  .reflection-box:focus { outline: none; border-color: var(--amber-light); }
+  .reflect-row { display: flex; align-items: center; gap: 1rem; margin-top: 8px; flex-wrap: wrap; }
+  .char-count { font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 12px; color: var(--slate-light); flex: 1; }
+  .char-count.enough { color: var(--success); }
+
+  /* ── QUIZ ── */
+  .quiz-question {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+  .q-text {
+    font-family: Georgia, serif;
+    font-size: 0.98rem;
+    color: var(--navy);
+    margin-bottom: 0.85rem;
+    font-weight: normal;
+  }
+  .q-num {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--slate-light);
+    margin-bottom: 6px;
+  }
+  .options-list { display: flex; flex-direction: column; gap: 7px; }
+  .option-btn {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13.5px;
+    text-align: left;
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    padding: 9px 14px;
+    cursor: pointer;
+    color: #2d3748;
+    transition: all 0.15s;
+  }
+  .option-btn:hover:not(:disabled) { border-color: var(--amber-light); background: var(--amber-bg); }
+  .option-btn.selected { border-color: var(--navy); background: #eef3f9; }
+  .option-btn.correct { border-color: var(--success); background: var(--success-bg); color: var(--success); }
+  .option-btn.incorrect { border-color: #e53e3e; background: var(--danger-bg); color: var(--danger); }
+  .option-btn:disabled { cursor: default; }
+  .q-feedback {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12.5px;
+    margin-top: 8px;
+    padding: 7px 12px;
+    border-radius: 6px;
+    display: none;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.ok { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+  .q-feedback.no { background: var(--danger-bg); color: var(--danger); border: 1px solid #fed7d7; }
+  .quiz-score {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    margin-top: 10px;
+    display: none;
+    font-weight: 600;
+  }
+  .quiz-score.show { display: block; }
+  .quiz-score.good { background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
+  .quiz-score.ok-score { background: var(--amber-bg); color: #7c4a00; border: 1px solid #f0d8a4; }
+
+  /* ── COMPLETION ── */
+  .completion-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: var(--navy);
+    border-radius: var(--radius);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .completion-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--amber-light), #fde68a, var(--amber-light));
+  }
+  .completion-section h2 {
+    color: #fff;
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin-bottom: 0.5rem;
+  }
+  .completion-section p {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 1.25rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .checklist {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: left;
+    margin-bottom: 1.5rem;
+  }
+  .check-row {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.4s;
+  }
+  .check-row.done { color: #6ee7b7; }
+  .check-icon {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    border: 1.5px solid currentColor;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    flex-shrink: 0;
+  }
+  .check-row.done .check-icon { background: #6ee7b7; border-color: #6ee7b7; color: var(--navy); }
+  .complete-btn {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 14px 40px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s;
+    background: #c8c8c8;
+    color: #666;
+    pointer-events: none;
+  }
+  .complete-btn.ready {
+    background: var(--amber-light);
+    color: var(--navy);
+    pointer-events: all;
+    animation: pulse-glow 2s infinite;
+  }
+  .complete-btn.ready:hover { background: #fbbf24; transform: translateY(-1px); }
+  .complete-btn.clicked {
+    background: #6ee7b7;
+    color: #065f46;
+    pointer-events: none;
+    animation: none;
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(240,168,53,0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(240,168,53,0); }
+  }
+  .unlock-msg {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 10px;
+  }
+  .unlock-msg.hidden { display: none; }
+  .complete-confirm {
+    display: none;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    color: #6ee7b7;
+    margin-top: 12px;
+    font-weight: 600;
+  }
+  .complete-confirm.show { display: block; }
+
+  /* ── UTILITY ── */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .activity-complete-stamp {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    color: var(--success);
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .activity-complete-stamp.show { display: flex; }
+</style>
+</head>
+<body>
+
+<div class="module-header">
+  <div class="eyebrow">American Government &amp; Politics · Module 1</div>
+  <h1>Political Socialization &amp; <em>Relativistic Thinking</em></h1>
+  <p>Complete all four activities below to unlock your module completion button. Read each section, engage with the activities, and reflect on your own political development.</p>
+</div>
+
+<!-- Progress Bar -->
+<div class="progress-wrap">
+  <span class="progress-label">PROGRESS</span>
+  <div class="progress-steps">
+    <div class="step-dot" id="dot-1"></div>
+    <div class="step-dot" id="dot-2"></div>
+    <div class="step-dot" id="dot-3"></div>
+    <div class="step-dot" id="dot-4"></div>
+    <div class="step-dot" id="dot-5"></div>
+  </div>
+  <span class="progress-pct" id="pct-label">0 / 5 complete</span>
+</div>
+
+<div class="container">
+
+  <!-- ── SECTION 1: Reading + Key Terms ── -->
+  <div class="section-header">
+    <div class="section-num">1</div>
+    <h2>What Is Political Socialization?</h2>
+    <span class="activity-badge" id="badge-1">Activity</span>
+  </div>
+
+  <div class="reading-card">
+    <p><strong>Political socialization</strong> is the process through which individuals develop their political beliefs, values, and attitudes. It explains how people come to understand their roles as citizens, make decisions about political issues, and participate in the democratic process. This process begins early in life and continues throughout a person's lifetime.</p>
+    <p>At its core, political socialization is about learning — both formal (like civics class) and informal (like dinner table conversations or social media). Importantly, it is not just about absorbing information; it's about interpreting that information within a personal and societal framework.</p>
+    <h3>Key Agents of Socialization</h3>
+    <p>Several major <em>agents</em> shape our political views over time: family, education, peers, media, cultural/religious environments, and major life events. Each plays a distinct role at different points in our lives.</p>
+  </div>
+
+  <p class="terms-hint">👆 Click each term card to reveal its definition</p>
+
+  <div class="terms-grid" id="terms-grid">
+    <div class="term-card" data-term="Political Socialization" onclick="revealTerm(this)">
+      <div class="front">Political Socialization <small>Click to reveal</small></div>
+      <div class="back">The lifelong process by which individuals develop political beliefs, values, and identities through various social influences.</div>
+    </div>
+    <div class="term-card" data-term="Family" onclick="revealTerm(this)">
+      <div class="front">Family <small>Agent of Socialization</small></div>
+      <div class="back">The first and most significant influence. Children absorb political cues from parents — party affiliation, civic behavior, and values — from an early age.</div>
+    </div>
+    <div class="term-card" data-term="Education" onclick="revealTerm(this)">
+      <div class="front">Education <small>Agent of Socialization</small></div>
+      <div class="back">Schools formally teach government structures, civic responsibilities, and history, building the knowledge base for political participation.</div>
+    </div>
+    <div class="term-card" data-term="Peers &amp; Social Networks" onclick="revealTerm(this)">
+      <div class="front">Peers &amp; Social Networks <small>Agent of Socialization</small></div>
+      <div class="back">Friends, colleagues, and social groups expose individuals to diverse perspectives that can reinforce or challenge existing political beliefs.</div>
+    </div>
+    <div class="term-card" data-term="Media" onclick="revealTerm(this)">
+      <div class="front">Media <small>Agent of Socialization</small></div>
+      <div class="back">A powerful agent that shapes public opinion through framing and information selection. Social media can create echo chambers or expose users to diverse viewpoints.</div>
+    </div>
+    <div class="term-card" data-term="Civic Duty" onclick="revealTerm(this)">
+      <div class="front">Civic Duty <small>Key concept</small></div>
+      <div class="back">The performance of actions that benefit the country or community — such as voting, jury service, or community involvement.</div>
+    </div>
+    <div class="term-card" data-term="Diffuse Support" onclick="revealTerm(this)">
+      <div class="front">Diffuse Support <small>Key concept</small></div>
+      <div class="back">A high level of stability in politics, acceptance of the government as legitimate, and a common goal of preserving the system — a benefit of effective political socialization.</div>
+    </div>
+    <div class="term-card" data-term="Political Ideology" onclick="revealTerm(this)">
+      <div class="front">Political Ideology <small>Key concept</small></div>
+      <div class="back">The set of attitudes and beliefs that shape an individual's opinions on political theory and policy — formed largely through socialization.</div>
+    </div>
+  </div>
+  <div class="terms-progress" id="terms-progress">0 of 8 revealed</div>
+  <div class="activity-complete-stamp" id="stamp-1">
+    <div class="check-icon" style="background:var(--success);border-color:var(--success);color:#fff;font-size:9px;">✓</div>
+    Activity 1 Complete!
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION 2: Agents Matching ── -->
+  <div class="section-header">
+    <div class="section-num">2</div>
+    <h2>Match the Agent of Socialization</h2>
+    <span class="activity-badge" id="badge-2">Activity</span>
+  </div>
+
+  <div class="match-intro">
+    For each scenario below, select which <strong>agent of socialization</strong> is most at work. Select all six, then click "Check Answers."
+  </div>
+
+  <div class="scenarios-list">
+    <div class="scenario-item">
+      <div class="scenario-result" id="r0"></div>
+      <div class="scenario-text">A nine-year-old accompanies her mother to the voting booth every November and grows up believing voting is a civic duty.</div>
+      <select class="scenario-select" id="s0">
+        <option value="">— Select agent —</option>
+        <option value="Family">Family</option>
+        <option value="Education">Education</option>
+        <option value="Peers & Social Networks">Peers &amp; Social Networks</option>
+        <option value="Media">Media</option>
+        <option value="Cultural/Religious Environment">Cultural/Religious Environment</option>
+        <option value="Major Life Events">Major Life Events</option>
+      </select>
+    </div>
+    <div class="scenario-item">
+      <div class="scenario-result" id="r1"></div>
+      <div class="scenario-text">A high school student takes AP Government and learns about the three branches of government and the Bill of Rights.</div>
+      <select class="scenario-select" id="s1">
+        <option value="">— Select agent —</option>
+        <option value="Family">Family</option>
+        <option value="Education">Education</option>
+        <option value="Peers & Social Networks">Peers &amp; Social Networks</option>
+        <option value="Media">Media</option>
+        <option value="Cultural/Religious Environment">Cultural/Religious Environment</option>
+        <option value="Major Life Events">Major Life Events</option>
+      </select>
+    </div>
+    <div class="scenario-item">
+      <div class="scenario-result" id="r2"></div>
+      <div class="scenario-text">A college student's political views shift after lengthy debates with her roommates from different states and backgrounds.</div>
+      <select class="scenario-select" id="s2">
+        <option value="">— Select agent —</option>
+        <option value="Family">Family</option>
+        <option value="Education">Education</option>
+        <option value="Peers & Social Networks">Peers &amp; Social Networks</option>
+        <option value="Media">Media</option>
+        <option value="Cultural/Religious Environment">Cultural/Religious Environment</option>
+        <option value="Major Life Events">Major Life Events</option>
+      </select>
+    </div>
+    <div class="scenario-item">
+      <div class="scenario-result" id="r3"></div>
+      <div class="scenario-text">A man begins following several political accounts on social media and finds his views reinforced in an ideological bubble.</div>
+      <select class="scenario-select" id="s3">
+        <option value="">— Select agent —</option>
+        <option value="Family">Family</option>
+        <option value="Education">Education</option>
+        <option value="Peers & Social Networks">Peers &amp; Social Networks</option>
+        <option value="Media">Media</option>
+        <option value="Cultural/Religious Environment">Cultural/Religious Environment</option>
+        <option value="Major Life Events">Major Life Events</option>
+      </select>
+    </div>
+    <div class="scenario-item">
+      <div class="scenario-result" id="r4"></div>
+      <div class="scenario-text">A young woman's views on immigration and community are shaped by growing up in a tight-knit Catholic parish.</div>
+      <select class="scenario-select" id="s4">
+        <option value="">— Select agent —</option>
+        <option value="Family">Family</option>
+        <option value="Education">Education</option>
+        <option value="Peers & Social Networks">Peers &amp; Social Networks</option>
+        <option value="Media">Media</option>
+        <option value="Cultural/Religious Environment">Cultural/Religious Environment</option>
+        <option value="Major Life Events">Major Life Events</option>
+      </select>
+    </div>
+    <div class="scenario-item">
+      <div class="scenario-result" id="r5"></div>
+      <div class="scenario-text">A previously apolitical adult becomes passionate about healthcare policy after a family member is denied insurance coverage.</div>
+      <select class="scenario-select" id="s5">
+        <option value="">— Select agent —</option>
+        <option value="Family">Family</option>
+        <option value="Education">Education</option>
+        <option value="Peers & Social Networks">Peers &amp; Social Networks</option>
+        <option value="Media">Media</option>
+        <option value="Cultural/Religious Environment">Cultural/Religious Environment</option>
+        <option value="Major Life Events">Major Life Events</option>
+      </select>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <button class="check-btn" id="match-check-btn" onclick="checkMatching()">Check Answers</button>
+    <div class="feedback-msg" id="match-feedback"></div>
+  </div>
+  <div class="activity-complete-stamp" id="stamp-2">
+    <div class="check-icon" style="background:var(--success);border-color:var(--success);color:#fff;font-size:9px;">✓</div>
+    Activity 2 Complete!
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION 3: Dualism vs. Relativism Sort ── -->
+  <div class="section-header">
+    <div class="section-num">3</div>
+    <h2>Dualism vs. Relativistic Thinking</h2>
+    <span class="activity-badge" id="badge-3">Activity</span>
+  </div>
+
+  <div class="reading-card">
+    <p><strong>Dualistic thinking</strong> sees the world in black-and-white. There is a right answer and a wrong answer, a good side and a bad side. This is natural in early learning and provides clarity, but it can limit understanding of complex issues.</p>
+    <p><strong>Relativistic thinking</strong> recognizes that there can be multiple valid perspectives, each shaped by individual experiences, cultural contexts, and specific situations. Psychologist <em>William Perry</em> studied how people mature from dualistic toward relativistic thinking. Relativism does not mean abandoning judgment — it means evaluating ideas based on evidence, reasoning, and context while remaining open to other insights.</p>
+    <p>In political life, relativism is essential: debates over healthcare, climate policy, or immigration rarely have a single "correct" answer. Engaging multiple perspectives leads to more nuanced, inclusive solutions.</p>
+  </div>
+
+  <div class="match-intro" style="margin-top:0.75rem;">
+    Click each statement below to place it in the <strong>Dualism</strong> or <strong>Relativism</strong> column. Place all 8 statements to complete this activity.
+  </div>
+
+  <div id="sort-bank" class="sort-items-bank"></div>
+
+  <div class="sort-container">
+    <div class="sort-col dualism-col" id="col-dualism">
+      <div class="sort-col-label">Dualism</div>
+      <div class="sort-col-sub">Black-and-white thinking; one right answer</div>
+      <div id="placed-dualism"></div>
+      <div class="sort-pending" id="pending-d">Drop statements here</div>
+    </div>
+    <div class="sort-col relativism-col" id="col-relativism">
+      <div class="sort-col-label">Relativism</div>
+      <div class="sort-col-sub">Multiple valid perspectives; context matters</div>
+      <div id="placed-relativism"></div>
+      <div class="sort-pending" id="pending-r">Drop statements here</div>
+    </div>
+  </div>
+
+  <div class="sort-action-row">
+    <button class="check-btn" id="sort-check-btn" onclick="checkSort()" disabled>Check Sort</button>
+    <button class="check-btn" onclick="resetSort()" style="background:#718096;">Reset</button>
+    <div class="feedback-msg" id="sort-feedback"></div>
+  </div>
+  <div class="activity-complete-stamp" id="stamp-3">
+    <div class="check-icon" style="background:var(--success);border-color:var(--success);color:#fff;font-size:9px;">✓</div>
+    Activity 3 Complete!
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION 4: Reflection ── -->
+  <div class="section-header">
+    <div class="section-num">4</div>
+    <h2>Personal Reflection</h2>
+    <span class="activity-badge" id="badge-4">Activity</span>
+  </div>
+
+  <div class="reflection-prompt">
+    Think about your own political socialization. Which agent (family, school, media, peers, religion, or a life event) has had the <em>most influence</em> on your political views? Describe a specific example and explain whether it led you toward more <em>dualistic</em> or <em>relativistic</em> thinking.
+  </div>
+
+  <textarea class="reflection-box" id="reflection-text" placeholder="Write your reflection here (at least 50 characters to submit)..." oninput="updateReflection()"></textarea>
+  <div class="reflect-row">
+    <span class="char-count" id="char-count">0 characters — minimum 50 required</span>
+    <button class="check-btn" id="reflect-btn" onclick="submitReflection()" disabled>Submit Reflection</button>
+  </div>
+  <div class="activity-complete-stamp" id="stamp-4">
+    <div class="check-icon" style="background:var(--success);border-color:var(--success);color:#fff;font-size:9px;">✓</div>
+    Reflection submitted!
+  </div>
+
+  <hr class="divider">
+
+  <!-- ── SECTION 5: Quiz ── -->
+  <div class="section-header">
+    <div class="section-num">5</div>
+    <h2>Knowledge Check Quiz</h2>
+    <span class="activity-badge" id="badge-5">Activity</span>
+  </div>
+
+  <div class="quiz-question" id="q1">
+    <div class="q-num">Question 1 of 5</div>
+    <div class="q-text">According to political scientists, which agent of socialization is typically the <em>first</em> and most significant influence on a child's political beliefs?</div>
+    <div class="options-list">
+      <button class="option-btn" onclick="answerQ(1, 'A', this)">A. Schools and formal education</button>
+      <button class="option-btn" onclick="answerQ(1, 'B', this)">B. Social media and the internet</button>
+      <button class="option-btn" onclick="answerQ(1, 'C', this)">C. Family</button>
+      <button class="option-btn" onclick="answerQ(1, 'D', this)">D. Religious institutions</button>
+    </div>
+    <div class="q-feedback" id="qf1"></div>
+  </div>
+
+  <div class="quiz-question" id="q2">
+    <div class="q-num">Question 2 of 5</div>
+    <div class="q-text">A news channel covers a protest by emphasizing property damage and calling demonstrators "rioters." This is an example of the media using:</div>
+    <div class="options-list">
+      <button class="option-btn" onclick="answerQ(2, 'A', this)">A. Diffuse support</button>
+      <button class="option-btn" onclick="answerQ(2, 'B', this)">B. Framing</button>
+      <button class="option-btn" onclick="answerQ(2, 'C', this)">C. Civic duty</button>
+      <button class="option-btn" onclick="answerQ(2, 'D', this)">D. Relativistic thinking</button>
+    </div>
+    <div class="q-feedback" id="qf2"></div>
+  </div>
+
+  <div class="quiz-question" id="q3">
+    <div class="q-num">Question 3 of 5</div>
+    <div class="q-text">Psychologist William Perry's theory suggests that people typically begin their intellectual development with ________ thinking and gradually move toward ________ thinking.</div>
+    <div class="options-list">
+      <button class="option-btn" onclick="answerQ(3, 'A', this)">A. Relativistic → Dualistic</button>
+      <button class="option-btn" onclick="answerQ(3, 'B', this)">B. Critical → Absolute</button>
+      <button class="option-btn" onclick="answerQ(3, 'C', this)">C. Dualistic → Relativistic</button>
+      <button class="option-btn" onclick="answerQ(3, 'D', this)">D. Empirical → Normative</button>
+    </div>
+    <div class="q-feedback" id="qf3"></div>
+  </div>
+
+  <div class="quiz-question" id="q4">
+    <div class="q-num">Question 4 of 5</div>
+    <div class="q-text">A student says: "There's only one correct immigration policy — open borders — and anyone who disagrees is simply wrong." This statement best reflects:</div>
+    <div class="options-list">
+      <button class="option-btn" onclick="answerQ(4, 'A', this)">A. Relativistic thinking</button>
+      <button class="option-btn" onclick="answerQ(4, 'B', this)">B. Dualistic thinking</button>
+      <button class="option-btn" onclick="answerQ(4, 'C', this)">C. Civic engagement</button>
+      <button class="option-btn" onclick="answerQ(4, 'D', this)">D. Diffuse support</button>
+    </div>
+    <div class="q-feedback" id="qf4"></div>
+  </div>
+
+  <div class="quiz-question" id="q5">
+    <div class="q-num">Question 5 of 5</div>
+    <div class="q-text">Political socialization is described as a "lifelong process." Which of the following best illustrates this concept?</div>
+    <div class="options-list">
+      <button class="option-btn" onclick="answerQ(5, 'A', this)">A. A child reciting the Pledge of Allegiance in school</button>
+      <button class="option-btn" onclick="answerQ(5, 'B', this)">B. A person's views on healthcare changing after a family medical crisis</button>
+      <button class="option-btn" onclick="answerQ(5, 'C', this)">C. A student learning the three branches of government</button>
+      <button class="option-btn" onclick="answerQ(5, 'D', this)">D. A parent explaining their party affiliation to a child</button>
+    </div>
+    <div class="q-feedback" id="qf5"></div>
+  </div>
+
+  <div class="quiz-score" id="quiz-score"></div>
+  <div class="activity-complete-stamp" id="stamp-5">
+    <div class="check-icon" style="background:var(--success);border-color:var(--success);color:#fff;font-size:9px;">✓</div>
+    Quiz Complete!
+  </div>
+
+  <!-- ── COMPLETION ── -->
+  <div class="completion-section" id="completion-section">
+    <h2>Module Completion</h2>
+    <p>Complete all five activities to unlock your progress and move to the next module.</p>
+    <div class="checklist">
+      <div class="check-row" id="cl-1">
+        <div class="check-icon">–</div>
+        <span>Key Terms: Reveal all 8 definitions</span>
+      </div>
+      <div class="check-row" id="cl-2">
+        <div class="check-icon">–</div>
+        <span>Agents Matching: Correctly match all 6 scenarios</span>
+      </div>
+      <div class="check-row" id="cl-3">
+        <div class="check-icon">–</div>
+        <span>Dualism Sort: Sort all 8 statements correctly</span>
+      </div>
+      <div class="check-row" id="cl-4">
+        <div class="check-icon">–</div>
+        <span>Reflection: Submit your written response</span>
+      </div>
+      <div class="check-row" id="cl-5">
+        <div class="check-icon">–</div>
+        <span>Quiz: Answer all 5 questions</span>
+      </div>
+    </div>
+    <br>
+    <button class="complete-btn" id="complete-btn" onclick="markComplete()">
+      Mark Module Complete →
+    </button>
+    <div class="unlock-msg" id="unlock-msg">Complete all activities above to unlock this button.</div>
+    <div class="complete-confirm" id="complete-confirm">
+      ✓ Module 1 marked complete. Proceed to the next activity in your module.
+    </div>
+  </div>
+
+</div><!-- /container -->
+
+<script>
+// ── STATE ──
+const completed = { 1: false, 2: false, 3: false, 4: false, 5: false };
+
+function updateProgress() {
+  const count = Object.values(completed).filter(Boolean).length;
+  for (let i = 1; i <= 5; i++) {
+    document.getElementById('dot-' + i).className = 'step-dot' + (completed[i] ? ' done' : '');
+  }
+  document.getElementById('pct-label').textContent = count + ' / 5 complete';
+  // Update checklist
+  for (let i = 1; i <= 5; i++) {
+    const row = document.getElementById('cl-' + i);
+    const icon = row.querySelector('.check-icon');
+    if (completed[i]) {
+      row.classList.add('done');
+      icon.textContent = '✓';
+    }
+  }
+  if (count === 5) {
+    document.getElementById('complete-btn').classList.add('ready');
+    document.getElementById('unlock-msg').classList.add('hidden');
+  }
+}
+
+function markActivityDone(n) {
+  if (completed[n]) return;
+  completed[n] = true;
+  document.getElementById('stamp-' + n).classList.add('show');
+  document.getElementById('badge-' + n).textContent = '✓ Done';
+  document.getElementById('badge-' + n).classList.add('done-badge');
+  updateProgress();
+}
+
+// ── ACTIVITY 1: KEY TERMS ──
+let termsRevealed = 0;
+function revealTerm(el) {
+  if (el.classList.contains('revealed')) return;
+  el.classList.add('revealed');
+  termsRevealed++;
+  document.getElementById('terms-progress').textContent = termsRevealed + ' of 8 revealed';
+  if (termsRevealed === 8) markActivityDone(1);
+}
+
+// ── ACTIVITY 2: AGENT MATCHING ──
+const matchAnswers = ['Family','Education','Peers & Social Networks','Media','Cultural/Religious Environment','Major Life Events'];
+function checkMatching() {
+  let correct = 0;
+  for (let i = 0; i < 6; i++) {
+    const val = document.getElementById('s' + i).value;
+    const res = document.getElementById('r' + i);
+    if (!val) continue;
+    if (val === matchAnswers[i]) {
+      res.className = 'scenario-result correct';
+      res.textContent = '✓';
+      correct++;
+    } else {
+      res.className = 'scenario-result incorrect';
+      res.textContent = '✗';
+    }
+  }
+  const fb = document.getElementById('match-feedback');
+  fb.classList.add('show');
+  if (correct === 6) {
+    fb.className = 'feedback-msg show ok';
+    fb.textContent = 'All 6 correct! You\'ve identified the agents of socialization.';
+    document.getElementById('match-check-btn').disabled = true;
+    for (let i = 0; i < 6; i++) document.getElementById('s' + i).disabled = true;
+    markActivityDone(2);
+  } else {
+    fb.className = 'feedback-msg show retry';
+    fb.textContent = correct + ' of 6 correct. Review the incorrect ones and try again.';
+  }
+}
+
+// ── ACTIVITY 3: DUALISM SORT ──
+const sortItems = [
+  { text: '"Healthcare policy is simple: either you support universal coverage or you don\'t care about people."', cat: 'dualism' },
+  { text: '"Both conservatives and progressives have valid concerns about immigration — the best policy probably draws on both."', cat: 'relativism' },
+  { text: '"There\'s only one right answer to the gun debate, and anyone who disagrees is either corrupt or uninformed."', cat: 'dualism' },
+  { text: '"My views on climate policy changed when I considered how it would affect communities in different economic situations."', cat: 'relativism' },
+  { text: '"Taxes are either too high or too low — the answer should be obvious to everyone."', cat: 'dualism' },
+  { text: '"Before forming an opinion on foreign aid, I try to understand the perspectives of both recipient nations and taxpayers."', cat: 'relativism' },
+  { text: '"The government is either on your side or working against you — there\'s no middle ground."', cat: 'dualism' },
+  { text: '"Reasonable people can disagree about the death penalty based on their values, evidence they\'ve seen, and their experiences."', cat: 'relativism' },
+];
+
+const sortPlaced = {}; // id -> 'dualism'|'relativism'
+
+function buildSort() {
+  const bank = document.getElementById('sort-bank');
+  bank.innerHTML = '';
+  sortItems.forEach((item, i) => {
+    if (sortPlaced[i] !== undefined) return;
+    const chip = document.createElement('div');
+    chip.className = 'sort-chip';
+    chip.textContent = item.text;
+    chip.dataset.id = i;
+    chip.innerHTML = '<span style="font-size:11px;color:#888;margin-right:6px;">' + (i+1) + '.</span>' + item.text;
+    // Click cycles through options
+    chip.addEventListener('click', () => showSortOptions(chip, i));
+    bank.appendChild(chip);
+  });
+  renderSortCols();
+  const allPlaced = Object.keys(sortPlaced).length === 8;
+  document.getElementById('sort-check-btn').disabled = !allPlaced;
+}
+
+function showSortOptions(chip, id) {
+  // Remove any existing menu
+  const existing = document.getElementById('sort-menu');
+  if (existing) existing.remove();
+  const menu = document.createElement('div');
+  menu.id = 'sort-menu';
+  menu.style.cssText = 'position:fixed;background:#fff;border:1.5px solid #e2e8f0;border-radius:8px;box-shadow:0 4px 20px rgba(0,0,0,0.12);padding:6px;z-index:999;min-width:200px;';
+  const options = [
+    { label: 'Dualism', cat: 'dualism' },
+    { label: 'Relativism', cat: 'relativism' },
+  ];
+  options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.textContent = 'Place in: ' + opt.label;
+    btn.style.cssText = 'display:block;width:100%;padding:8px 12px;background:none;border:none;border-radius:5px;text-align:left;cursor:pointer;font-family:Helvetica Neue,Arial,sans-serif;font-size:13px;color:#2d3748;';
+    btn.addEventListener('mouseenter', () => btn.style.background = '#f7fafc');
+    btn.addEventListener('mouseleave', () => btn.style.background = 'none');
+    btn.addEventListener('click', () => {
+      sortPlaced[id] = opt.cat;
+      menu.remove();
+      buildSort();
+    });
+    menu.appendChild(btn);
+  });
+  const rect = chip.getBoundingClientRect();
+  menu.style.top = (rect.bottom + 4) + 'px';
+  menu.style.left = rect.left + 'px';
+  document.body.appendChild(menu);
+  const close = (e) => { if (!menu.contains(e.target) && e.target !== chip) { menu.remove(); document.removeEventListener('click', close); } };
+  setTimeout(() => document.addEventListener('click', close), 10);
+}
+
+function renderSortCols() {
+  ['dualism','relativism'].forEach(cat => {
+    const el = document.getElementById('placed-' + cat);
+    const pending = document.getElementById('pending-' + cat[0]);
+    el.innerHTML = '';
+    const entries = Object.entries(sortPlaced).filter(([k, v]) => v === cat);
+    if (entries.length === 0) {
+      pending.style.display = 'block';
+    } else {
+      pending.style.display = 'none';
+      entries.forEach(([k]) => {
+        const d = document.createElement('div');
+        d.className = 'placed-chip ' + cat;
+        d.innerHTML = '<span style="opacity:0.6;font-size:10px;">' + (parseInt(k)+1) + '.</span> ' + sortItems[k].text.substring(0,60) + (sortItems[k].text.length > 60 ? '…' : '');
+        el.appendChild(d);
+      });
+    }
+  });
+}
+
+function checkSort() {
+  let correct = 0;
+  Object.entries(sortPlaced).forEach(([k, v]) => {
+    if (v === sortItems[k].cat) correct++;
+  });
+  const fb = document.getElementById('sort-feedback');
+  fb.classList.add('show');
+  if (correct === 8) {
+    fb.className = 'feedback-msg show ok';
+    fb.textContent = 'All 8 placed correctly! You can distinguish dualistic and relativistic thinking.';
+    document.getElementById('sort-check-btn').disabled = true;
+    markActivityDone(3);
+  } else {
+    fb.className = 'feedback-msg show retry';
+    fb.textContent = correct + ' of 8 correct. Reset and try again — revisit the definitions above.';
+  }
+}
+
+function resetSort() {
+  for (let k in sortPlaced) delete sortPlaced[k];
+  document.getElementById('sort-feedback').classList.remove('show');
+  buildSort();
+}
+
+buildSort();
+
+// ── ACTIVITY 4: REFLECTION ──
+function updateReflection() {
+  const len = document.getElementById('reflection-text').value.length;
+  const cc = document.getElementById('char-count');
+  const btn = document.getElementById('reflect-btn');
+  if (len >= 50) {
+    cc.textContent = len + ' characters — ready to submit';
+    cc.classList.add('enough');
+    btn.disabled = false;
+  } else {
+    cc.textContent = len + ' characters — minimum 50 required';
+    cc.classList.remove('enough');
+    btn.disabled = true;
+  }
+}
+
+function submitReflection() {
+  document.getElementById('reflect-btn').disabled = true;
+  document.getElementById('reflect-btn').textContent = 'Submitted ✓';
+  document.getElementById('reflection-text').disabled = true;
+  markActivityDone(4);
+}
+
+// ── ACTIVITY 5: QUIZ ──
+const quizAnswers = { 1:'C', 2:'B', 3:'C', 4:'B', 5:'B' };
+const quizFeedback = {
+  1: { C: 'Correct! Family is typically the first and most significant agent of political socialization. Children adopt cues about party affiliation and civic behavior from parents early in life.', wrong: 'Not quite. While education is important, family is identified as the first and most significant influence — children begin absorbing political cues before they ever enter a classroom.' },
+  2: { B: 'Correct! Framing is when media chooses how to present information. Labeling the same event as a "riot" vs. a "protest" shapes how the audience perceives it.', wrong: 'Not quite. This is an example of framing — the media\'s choice of language and emphasis to shape how events are perceived.' },
+  3: { C: 'Correct! Perry\'s theory holds that learners start in a dualistic, black-and-white mindset and mature toward relativistic thinking that embraces complexity and multiple valid perspectives.', wrong: 'Not quite. Perry\'s theory specifically tracks development from dualistic (either/or) thinking to relativistic (contextual, multiple-perspective) thinking.' },
+  4: { B: 'Correct! This is classic dualistic thinking — seeing one answer as absolutely right and dismissing all other views without examining evidence or context.', wrong: 'Not quite. This statement reflects dualistic thinking: the assumption that there is only one right answer and all others are wrong, without nuance or context.' },
+  5: { B: 'Correct! An adult changing views after a personal life event (a family medical crisis) perfectly illustrates how political socialization continues throughout life — not just in childhood.', wrong: 'Not quite. The lifelong nature of socialization is best illustrated by an adult changing views due to a life event. The other choices describe childhood or formal education settings.' },
+};
+
+const quizAnswered = {};
+
+function answerQ(n, choice, btn) {
+  if (quizAnswered[n]) return;
+  quizAnswered[n] = choice;
+  const correct = quizAnswers[n];
+  const fb = document.getElementById('qf' + n);
+  const qDiv = document.getElementById('q' + n);
+  qDiv.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+
+  if (choice === correct) {
+    btn.classList.add('correct');
+    fb.className = 'q-feedback show ok';
+    fb.textContent = quizFeedback[n][correct];
+  } else {
+    btn.classList.add('incorrect');
+    fb.className = 'q-feedback show no';
+    fb.textContent = quizFeedback[n].wrong;
+    qDiv.querySelectorAll('.option-btn').forEach(b => {
+      if (b.textContent.startsWith(correct + '.') || b.textContent.charAt(0) === correct) b.classList.add('correct');
+    });
+  }
+
+  if (Object.keys(quizAnswered).length === 5) {
+    const score = Object.entries(quizAnswered).filter(([k,v]) => quizAnswers[k] === v).length;
+    const scoreEl = document.getElementById('quiz-score');
+    scoreEl.classList.add('show');
+    if (score >= 4) {
+      scoreEl.className = 'quiz-score show good';
+      scoreEl.textContent = 'Quiz Complete: ' + score + '/5 correct. Excellent work!';
+    } else {
+      scoreEl.className = 'quiz-score show ok-score';
+      scoreEl.textContent = 'Quiz Complete: ' + score + '/5 correct. Review the explanations above to strengthen your understanding.';
+    }
+    markActivityDone(5);
+  }
+}
+
+// ── COMPLETION ──
+function markComplete() {
+  const btn = document.getElementById('complete-btn');
+  btn.classList.remove('ready');
+  btn.classList.add('clicked');
+  btn.textContent = '✓ Module Complete';
+  document.getElementById('complete-confirm').classList.add('show');
+  document.getElementById('unlock-msg').classList.add('hidden');
+}
+
+// Init
+updateProgress();
+</script>
+</body>
+</html>
